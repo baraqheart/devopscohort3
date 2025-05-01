@@ -9,10 +9,11 @@
 - copy Aws acess key ID and secret key somewhere safe
 
 ### Step2: Install AWs cli
-- visit aws website to get the (latest link)[https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html] or
+- visit aws website to get the [latest link](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) or
 
-- install it (here)[]
-```h
+- or use this command to install aws cli
+
+```bash
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
@@ -28,22 +29,26 @@ sudo ./aws/install
 - enter your preffered region or press enter to maintain default
 - choose you output style, json or yaml.
 - now you will be able to interact with your aws account
-without using the console
+  without using the console
 
 - use `aws --version` to confirm installation
 
 
-### PART 2: DEPLOYMMENT
+## PART 2: DEPLOYMMENT
 
 1. Create vpc and get the id
 
-`aws ec2 create-vpc --cidr-block 10.0.0.0/16`
+```bash
+aws ec2 create-vpc --cidr-block 10.0.0.0/16`
 
-`aws ec2 describe-vpcs`
+aws ec2 describe-vpcs
+```
 
 2. Create a subnet
 
-`aws ec2 create-subnet --vpc-id <vpc_id> --cidr-block 10.0.1.0/24 --availability-zone us-east-1a`
+```bash
+aws ec2 create-subnet --vpc-id <vpc_id> --cidr-block 10.0.1.0/24 --availability-zone us-east-1a
+```
 
 
 3. create keypair
@@ -64,28 +69,42 @@ aws ec2 run-instances --image-id ami-0abcdef1234567890 --instance-type t2.micro 
 
 6. create an s3 bucket
 
-`aws s3 mb s3://your-bucket-name --region your-region`
+```bash
+aws s3 mb s3://your-bucket-name --region your-region
+```
 
 7. upload website zip file to s3 bucket
 
-`aws s3 cp your-own-directory s3://your-bucket-name`
+```
+aws s3 cp your-own-directory s3://your-bucket-name
+```
 
 8. copy file to your instance and unzip it
 
-`aws s3 cp s3://my-bucket/website.zip /home/ec2-user/`
+```bash
+aws s3 cp s3://my-bucket/website.zip /home/ec2-user/
+```
 
-### Part 3: Cleanup
+## PART 3: Cleanup
 - delete or terminate instance
 
-`aws ec2 terminate-instances --instance-id`
+```bash
+aws ec2 terminate-instances --instance-id
+```
 
 - delete keypair
-`aws ec2 delete-key-pair --key-name MyKeyPair`
+```bash
+aws ec2 delete-key-pair --key-name MyKeyPair
+```
 
 - delete subnet
-`aws ec2 delete-subnet --subnet-id <subnetname>`
+```bash
+aws ec2 delete-subnet --subnet-id <subnetname>
+```
 
 - delete vpc
-`aws ec2 delete-vpc --vpc-id <vpc-id>`
+```bash
+aws ec2 delete-vpc --vpc-id <vpc-id>
+```
 
 - detele s3 bucket and content also
